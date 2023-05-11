@@ -1,29 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, Platform } from "react-native";
-import { Audio } from "expo-av";
-import { PitchDetector } from "react-native-pitch-detector";
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Button, Platform} from 'react-native';
+import {PitchDetector} from 'react-native-pitch-detector';
 
 export default function VoicePitchDetector() {
   const [recording, setRecording] = React.useState<boolean>();
-
+  const subscription = PitchDetector.addListener(console.log);
   async function startRecording() {
-    console.log("Starting recording");
-    try {
-      await Audio.requestPermissionsAsync();
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: true,
-        playsInSilentModeIOS: true,
-      });
-    } catch (err) {
-      console.error("Failed to start recording", err);
-    }
-
+    console.log('Start recording');
     setRecording(true);
     PitchDetector.start();
   }
 
   function stopRecording() {
-    console.log("Stop recording");
+    console.log('Stop recording');
     setRecording(false);
     PitchDetector.stop();
   }
@@ -31,7 +20,7 @@ export default function VoicePitchDetector() {
   return (
     <View style={styles.container}>
       <Button
-        title={recording ? "녹음 중지" : "녹음하기"}
+        title={recording ? '녹음 중지' : '녹음하기'}
         onPress={recording ? stopRecording : startRecording}
       />
     </View>
@@ -42,15 +31,15 @@ export default function VoicePitchDetector() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     padding: 20,
-    backgroundColor: "blue",
-    color: "white",
+    backgroundColor: 'blue',
+    color: 'white',
     borderRadius: 10,
   },
 });
