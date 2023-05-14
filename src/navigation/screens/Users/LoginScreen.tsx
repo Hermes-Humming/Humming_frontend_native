@@ -1,33 +1,33 @@
-import * as React from "react";
-import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import TopMenuBar from "../../../component/TopMenuBar";
-import { TextInput } from "react-native-paper";
+import * as React from 'react';
+import {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import TopMenuBar from '../../../component/TopMenuBar';
+import {TextInput} from 'react-native-paper';
 
 //asset
-import GotoSignUp from "../../../assets/GoToSignUp.svg";
+import GotoSignUp from '../../../assets/GoToSignUp.svg';
 
 //User Stack
-import { StackScreenProps } from "@react-navigation/stack";
-import { UserStackParamList } from "../../../types/stacks/UserStackTypes";
+import {StackScreenProps} from '@react-navigation/stack';
+import {UserStackParamList} from '../../../types/stacks/UserStackTypes';
 
 //Export type
-export type LoginScreenProps = StackScreenProps<UserStackParamList, "Login">;
+export type LoginScreenProps = StackScreenProps<UserStackParamList, 'Login'>;
 
-const LoginScreen = ({ navigation }: LoginScreenProps) => {
+const LoginScreen = ({navigation}: LoginScreenProps) => {
   //이메일 입력값 관리
-  const [userEmail, setUserEmail] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<Boolean>(true);
   useEffect(() => {
     if (userEmail.length == 0) setEmailError(true);
     else {
-      if (userEmail.includes("@") == false) setEmailError(true);
+      if (userEmail.includes('@') == false) setEmailError(true);
       else setEmailError(false);
     }
   }, [userEmail]);
 
   //비밀번호 입력값 관리
-  const [userPW, setUserPW] = useState<string>("");
+  const [userPW, setUserPW] = useState<string>('');
   const [pwError, setPWError] = useState<Boolean>(true);
   useEffect(() => {
     if (userPW.length < 8 || userPW.length > 20) setPWError(true);
@@ -57,7 +57,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
             placeholderTextColor="#ADADAD"
             mode="outlined"
             style={styles.textInputBox}
-            onChangeText={(email) => setUserEmail(email)}
+            onChangeText={email => setUserEmail(email)}
             selectionColor="black"
             outlineColor="#BBA5FF"
             activeOutlineColor="#BBA5FF"
@@ -73,14 +73,14 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
             style={styles.textInputBox}
             placeholder="password"
             placeholderTextColor="#ADADAD"
-            onChangeText={(pw) => setUserPW(pw)}
+            onChangeText={pw => setUserPW(pw)}
             selectionColor="black"
             outlineColor="#BBA5FF"
             activeOutlineColor="#BBA5FF"
             secureTextEntry={!pwVisible}
             right={
               <TextInput.Icon
-                icon={pwVisible ? "eye" : "eye-off"}
+                icon={pwVisible ? 'eye' : 'eye-off'}
                 onPress={() => setPWVisible(!pwVisible)}
                 style={styles.eyeIcon}
               />
@@ -101,9 +101,10 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
       <View style={styles.btmArea}>
         <TouchableOpacity
           disabled={btnDisableState}
-          onPress={() => navigation.navigate("Welcome")}
-          style={btnDisableState ? styles.nextDisableBtnBox : styles.nextBtnBox}
-        >
+          onPress={() => navigation.navigate('Welcome')}
+          style={
+            btnDisableState ? styles.nextDisableBtnBox : styles.nextBtnBox
+          }>
           <Text style={styles.nextText}>다음으로</Text>
         </TouchableOpacity>
       </View>
@@ -116,37 +117,37 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   topArea: {
     flex: 0.7,
   },
   btmArea: {
     flex: 0.3,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   topMenuBar: {
     marginTop: 5,
   },
 
   nextBtnBox: {
-    backgroundColor: "#393939",
+    backgroundColor: '#393939',
     width: 248,
     height: 48,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 20,
     marginBottom: -15,
     marginTop: 10,
   },
 
   nextDisableBtnBox: {
-    backgroundColor: "#EFF4F4",
+    backgroundColor: '#EFF4F4',
     width: 248,
     height: 48,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 20,
     marginBottom: -15,
     marginTop: 10,
@@ -154,13 +155,13 @@ const styles = StyleSheet.create({
 
   nextText: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#FFFFFF",
+    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
 
   boxesText: {
     marginLeft: 30,
-    color: "#4B4B4B",
+    color: '#4B4B4B',
     fontSize: 18,
   },
 
@@ -173,10 +174,10 @@ const styles = StyleSheet.create({
   textInputBox: {
     width: 345,
     height: 50,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     borderRadius: 10,
     fontSize: 17,
-    fontWeight: "400",
+    fontWeight: '400',
   },
 
   eyeIcon: {
@@ -185,12 +186,12 @@ const styles = StyleSheet.create({
 
   errorMsg: {
     marginTop: 5,
-    color: "#787878",
+    color: '#787878',
     fontSize: 10,
   },
 
   errorPannel: {
     marginTop: 30,
-    alignItems: "center",
+    alignItems: 'center',
   },
 });
