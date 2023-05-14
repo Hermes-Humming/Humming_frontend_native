@@ -36,7 +36,7 @@ function EmptyScreen() {
   return <View />;
 }
 
-let isLoggedIn = false; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
+let isLoggedIn = true; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
 
 export default function MainContainer() {
   return isLoggedIn ? (

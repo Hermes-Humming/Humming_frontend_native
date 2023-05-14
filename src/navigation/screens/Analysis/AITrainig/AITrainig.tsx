@@ -10,7 +10,12 @@ import {
 } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator();
+import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
+const Stack = createNativeStackNavigator<AITrainingStackParamList>();
+export type AITrainingProps = StackScreenProps<
+  AITrainingStackParamList,
+  'AITraining'
+>;
 
 import TopMenuBar from '../../../../component/TopMenuBar';
 
@@ -20,8 +25,9 @@ const {width, height} = Dimensions.get('window');
 import SelectMusic from './SelectMusic';
 import TrainingVoice from './TrainingVoice';
 import ResultSynthesis from './ResultSynthesis';
+import {StackScreenProps} from '@react-navigation/stack';
 
-function AITraining({navigation}) {
+function AITraining({navigation}: AITrainingProps) {
   //입력값 관리
   const [title, setTitle] = useState<string>('');
   const [titleError, setTitleError] = useState<boolean>(true);
@@ -102,11 +108,11 @@ function AITraining({navigation}) {
   );
 }
 
-function Analysis({navigation}) {
+function Analysis() {
   return (
-    <Stack.Navigator initialRouteName="InputMusicInfo">
+    <Stack.Navigator initialRouteName="AITraining">
       <Stack.Group screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={AITraining} />
+        <Stack.Screen name="AITraining" component={AITraining} />
         <Stack.Screen name="SelectMusic" component={SelectMusic} />
         <Stack.Screen name="TrainingVoice" component={TrainingVoice} />
         <Stack.Screen name="ResultSynthesis" component={ResultSynthesis} />
