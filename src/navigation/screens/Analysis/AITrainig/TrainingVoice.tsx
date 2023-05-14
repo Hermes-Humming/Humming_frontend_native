@@ -23,16 +23,7 @@ const TrainingVoice = ({navigation}) => {
         <TopMenuBar />
       </View>
       <View style={{flex: 80}}>
-        <Text
-          style={{
-            marginLeft: 30,
-            fontSize: 20,
-            marginBottom: 20,
-            fontWeight: 'bold',
-            color: 'black',
-          }}>
-          AI 목소리 학습
-        </Text>
+        <Text style={styles.titleText}>AI 목소리 학습</Text>
         <View style={{alignItems: 'center'}}>
           <View style={styles.countdownCircle}>
             <CountdownCircleTimer
@@ -81,8 +72,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topMenuBar: {
-    marginTop: height * 0.03,
+    marginTop: height * 0.01,
   },
+  titleText: {
+    marginLeft: 30,
+    fontSize: 20,
+    marginBottom: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+
   countdownCircle: {
     marginBottom: 30,
     width: width * 0.8,

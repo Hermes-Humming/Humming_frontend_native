@@ -19,16 +19,7 @@ const SelectMusic = ({navigation}) => {
         <TopMenuBar />
       </View>
       <View style={{flex: 80}}>
-        <Text
-          style={{
-            marginLeft: 30,
-            fontSize: 20,
-            marginBottom: 20,
-            fontWeight: 'bold',
-            color: 'black',
-          }}>
-          아래 리스트에서 선곡해주세요
-        </Text>
+        <Text style={styles.titleText}>아래 리스트에서 선곡해주세요</Text>
         <View style={{alignItems: 'center', marginBottom: 10}}>
           <View
             style={{
@@ -62,7 +53,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topMenuBar: {
-    marginTop: height * 0.03,
+    marginTop: height * 0.01,
+  },
+  titleText: {
+    marginLeft: 30,
+    fontSize: 20,
+    marginBottom: 20,
+    fontWeight: 'bold',
+    color: 'black',
   },
   nextText: {
     fontSize: 18,
