@@ -65,13 +65,13 @@ const styles = StyleSheet.create({
     marginTop: height * 0.03,
   },
   nextText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#BBA5FF',
     marginRight: width * 0.05,
   },
   disableNextText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#EFF4F4',
     marginRight: width * 0.05,
