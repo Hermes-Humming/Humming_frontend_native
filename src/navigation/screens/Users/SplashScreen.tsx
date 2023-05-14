@@ -1,5 +1,11 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
 
 //사진
@@ -11,6 +17,8 @@ import {UserStackParamList} from '../../../types/stacks/UserStackTypes';
 
 //Export type
 export type SplashScreenProps = StackScreenProps<UserStackParamList, 'Splash'>;
+
+const {width, height} = Dimensions.get('window');
 
 const SplashScreen = ({navigation}: SplashScreenProps) => {
   return (
@@ -46,23 +54,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topArea: {
-    flex: 0.7,
+    flex: 0.8,
   },
   btmArea: {
-    flex: 0.3,
+    flex: 0.2,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   topMenuBar: {
-    marginTop: 100,
-    marginLeft: 20,
+    marginTop: height * 0.01,
   },
   titleText: {
     fontWeight: 'bold',
     color: '#393939',
-    fontSize: 36,
+    fontSize: 30,
     marginLeft: 50,
-    marginTop: -20,
   },
   logo: {
     paddingLeft: 50,
@@ -75,17 +80,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    marginBottom: -15,
-    marginTop: 20,
+    marginTop: 10,
   },
   loginText: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '400',
     color: '#393939',
     textDecorationLine: 'underline',
   },
   signUpText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
