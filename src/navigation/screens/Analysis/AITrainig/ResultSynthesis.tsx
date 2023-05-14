@@ -11,9 +11,17 @@ import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 
 import TopMenuBar from '../../../../component/TopMenuBar';
 
+import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
+import {StackScreenProps} from '@react-navigation/stack';
+
+export type ResultSynthesisProps = StackScreenProps<
+  AITrainingStackParamList,
+  'ResultSynthesis'
+>;
+
 const {width, height} = Dimensions.get('window');
 
-const ResultSynthesis = ({navigation}) => {
+const ResultSynthesis = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topMenuBar}>
