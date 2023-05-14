@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
 const Stack = createNativeStackNavigator<AITrainingStackParamList>();
 export type AITrainingProps = StackScreenProps<
