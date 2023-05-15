@@ -51,7 +51,9 @@ const MyPage = () => {
         </View>
       </View>
       <View style={styles.errorBox}>
-        <Text>에러 처리 시 오류가 나오는 부분입니다.</Text>
+        <Text style={{paddingLeft: 30}}>
+          에러 처리 시 오류가 나오는 부분입니다.
+        </Text>
       </View>
     </View>
   );
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
   changePWBox: {
     height: height * 0.05,
     width: width * 0.4,
-    borderColor: 'grey',
+    borderColor: '#DDDDDD',
     borderWidth: 1,
     borderRadius: 5,
     fontSize: 12,
