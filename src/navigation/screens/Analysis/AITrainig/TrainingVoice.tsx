@@ -16,7 +16,15 @@ import {Lyrics} from '../../../../data/lyrics';
 
 const {width, height} = Dimensions.get('window');
 
-const TrainingVoice = ({navigation}) => {
+import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
+import {StackScreenProps} from '@react-navigation/stack';
+
+export type TrainingVoiceProps = StackScreenProps<
+  AITrainingStackParamList,
+  'TrainingVoice'
+>;
+
+const TrainingVoice = ({navigation}: TrainingVoiceProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topMenuBar}>

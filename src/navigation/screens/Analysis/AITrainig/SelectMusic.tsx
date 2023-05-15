@@ -12,7 +12,15 @@ import TopMenuBar from '../../../../component/TopMenuBar';
 //get window size
 const {width, height} = Dimensions.get('window');
 
-const SelectMusic = ({navigation}) => {
+import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
+import {StackScreenProps} from '@react-navigation/stack';
+
+export type SelectMusicProps = StackScreenProps<
+  AITrainingStackParamList,
+  'SelectMusic'
+>;
+
+const SelectMusic = ({navigation}: SelectMusicProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topMenuBar}>

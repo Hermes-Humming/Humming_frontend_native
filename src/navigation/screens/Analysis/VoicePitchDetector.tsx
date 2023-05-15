@@ -1,6 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Button, Platform} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, Button} from 'react-native';
 import {PitchDetector} from 'react-native-pitch-detector';
+
+import {AnalysisStackParamList} from '../../../types/stacks/AnalysisStackTypes';
+import {StackScreenProps} from '@react-navigation/stack';
+export type VoicePitchDetectorProps = StackScreenProps<
+  AnalysisStackParamList,
+  'PitchDetect'
+>;
 
 export default function VoicePitchDetector() {
   const [recording, setRecording] = React.useState<boolean>();

@@ -9,7 +9,8 @@ import TrebleClef from '../../../assets/TrebleClef.svg';
 import BandNotes from '../../../assets/BandNotes.svg';
 import BandSpeaker from '../../../assets/BandSpeaker.svg';
 
-const Stack = createNativeStackNavigator();
+import {AnalysisStackParamList} from '../../../types/stacks/AnalysisStackTypes';
+const Stack = createNativeStackNavigator<AnalysisStackParamList>();
 
 import AITraining from './AITrainig/AITrainig';
 
@@ -117,11 +118,11 @@ const styles = StyleSheet.create({
 
 //TODO: 아래 컴포넌트는 새로운 화면이 될 것이기 때문에 새로운 파일로 분리하기, ex) PitchDetect.tsx
 
-function Analysis({navigation}: any) {
+function Analysis() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="AnalysisHome">
       <Stack.Group screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={AnalysisHome} />
+        <Stack.Screen name="AnalysisHome" component={AnalysisHome} />
         <Stack.Screen name="PitchDetect" component={PitchDetect} />
         <Stack.Screen name="AITrainingCenter" component={AITraining} />
       </Stack.Group>
