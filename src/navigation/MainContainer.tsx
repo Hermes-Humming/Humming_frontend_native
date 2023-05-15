@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {View} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -38,7 +37,7 @@ const Tab = createBottomTabNavigator();
   return <View />;
 }*/
 
-let isLoggedIn = true; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
+let isLoggedIn = false; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
 
 export default function MainContainer() {
   return isLoggedIn ? (
@@ -62,16 +61,32 @@ export default function MainContainer() {
 
             return <Icon name={iconName} size={size} color={color} />;
           },
-          headerShown: false,
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'grey',
-          labelStyle: {paddingBottom: 10, fontSize: 10},
-          style: {padding: 10, height: 70},
+          //headerShown: false,
+          //labelStyle: {paddingBottom: 10, fontSize: 10},
+          //style: {padding: 10, height: 70},
         })}>
-        <Tab.Screen name={magazineName} component={HomeScreen} />
-        <Tab.Screen name={analysisName} component={AnalysisScreen} />
-        <Tab.Screen name={playlistName} component={SettingsScreen} />
-        <Tab.Screen name={mypageName} component={MyPageScreen} />
+        <Tab.Screen
+          name={magazineName}
+          component={HomeScreen}
+          options={{
+            tabBarActiveTintColor: '#7B61FF',
+          }}
+        />
+        <Tab.Screen
+          name={analysisName}
+          component={AnalysisScreen}
+          options={{tabBarActiveTintColor: '#7B61FF'}}
+        />
+        <Tab.Screen
+          name={playlistName}
+          component={SettingsScreen}
+          options={{tabBarActiveTintColor: '#7B61FF'}}
+        />
+        <Tab.Screen
+          name={mypageName}
+          component={MyPageScreen}
+          options={{tabBarActiveTintColor: '#7B61FF'}}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
