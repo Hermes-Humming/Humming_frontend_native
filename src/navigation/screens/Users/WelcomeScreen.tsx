@@ -1,5 +1,11 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
 
 //asset
@@ -15,6 +21,8 @@ export type WelcomeScreenProps = StackScreenProps<
   'Welcome'
 >;
 
+const {width, height} = Dimensions.get('window');
+
 const WelcomeScreen = ({navigation}: WelcomeScreenProps) => {
   return (
     <View style={styles.container}>
@@ -25,10 +33,16 @@ const WelcomeScreen = ({navigation}: WelcomeScreenProps) => {
         <Illust width="100%" height="400" />
       </View>
       <View style={styles.btmArea}>
-        <Text style={{fontSize: 32, fontWeight: '400'}}>
+        <Text style={{fontSize: 20, fontWeight: '400', color: 'black'}}>
           Humming에 오신 것을 환영합니다!
         </Text>
-        <Text style={{fontSize: 20, fontWeight: '400', marginTop: 10}}>
+        <Text
+          style={{
+            fontSize: 15,
+            fontWeight: '400',
+            marginTop: 10,
+            color: 'black',
+          }}>
           이제부터 Humming의 다양한 기능을 사용해보세요.
         </Text>
         <TouchableOpacity
@@ -50,17 +64,14 @@ const styles = StyleSheet.create({
   },
   topArea: {
     flex: 0.7,
-    //backgroundColor: "blue",
   },
   btmArea: {
-    //backgroundColor: "pink",
     flex: 0.3,
     alignItems: 'center',
-    justifyContent: 'center',
   },
 
   topMenuBar: {
-    marginTop: 100,
+    marginTop: height * 0.01,
   },
 
   nextBtnBox: {
@@ -75,7 +86,7 @@ const styles = StyleSheet.create({
   },
 
   nextText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },

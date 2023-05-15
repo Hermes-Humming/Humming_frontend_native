@@ -1,6 +1,12 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
 import {TextInput} from 'react-native-paper';
 
@@ -13,6 +19,8 @@ import {UserStackParamList} from '../../../types/stacks/UserStackTypes';
 
 //Export type
 export type SignUpScreenProps = StackScreenProps<UserStackParamList, 'SignUp'>;
+
+const {width, height} = Dimensions.get('window');
 
 const SignUpScreen = ({navigation}: SignUpScreenProps) => {
   //이메일 입력값 관리
@@ -182,15 +190,16 @@ const styles = StyleSheet.create({
   },
 
   nextText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
 
   boxesText: {
     marginLeft: 30,
-    color: '#4B4B4B',
-    fontSize: 18,
+    color: '#272727',
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 
   inputBoxesAlign: {
@@ -200,7 +209,7 @@ const styles = StyleSheet.create({
   },
 
   textInputBox: {
-    width: 345,
+    width: width * 0.85,
     height: 50,
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
