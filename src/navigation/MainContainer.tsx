@@ -10,7 +10,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/Magazine/MagazineScreen';
 import AnalysisScreen from './screens/Analysis/AnalysisHome';
 import SettingsScreen from './screens/PlaylistScreen';
-import VoiceRecordTestScreen from './screens/AnalyticsScreen';
+import MyPageScreen from './screens/Users/MyPage';
+//import VoiceRecordTestScreen from './screens/AnalyticsScreen';
 
 // Login, SignUp Screens
 import SplashScreen from './screens/Users/SplashScreen';
@@ -28,15 +29,16 @@ const usersStack = createNativeStackNavigator<UserStackParamList>();
 const magazineName = '매거진';
 const analysisName = '분석';
 const playlistName = '플레이리스트';
+const mypageName = '마이페이지';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+//const Stack = createNativeStackNavigator();
 
-function EmptyScreen() {
+/*function EmptyScreen() {
   return <View />;
-}
+}*/
 
-let isLoggedIn = false; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
+let isLoggedIn = true; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
 
 export default function MainContainer() {
   return isLoggedIn ? (
@@ -54,6 +56,8 @@ export default function MainContainer() {
               iconName = focused ? 'analytics' : 'analytics-outline';
             } else if (rn === playlistName) {
               iconName = focused ? 'musical-notes' : 'musical-notes-outline';
+            } else if (rn === mypageName) {
+              iconName = focused ? 'person-circle' : 'person-circle-outline';
             }
 
             return <Icon name={iconName} size={size} color={color} />;
@@ -67,6 +71,7 @@ export default function MainContainer() {
         <Tab.Screen name={magazineName} component={HomeScreen} />
         <Tab.Screen name={analysisName} component={AnalysisScreen} />
         <Tab.Screen name={playlistName} component={SettingsScreen} />
+        <Tab.Screen name={mypageName} component={MyPageScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
