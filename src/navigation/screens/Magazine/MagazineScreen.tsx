@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ScrollView} from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ScrollView } from 'react-native-gesture-handler';
 import TopMenuBar from '../../../component/TopMenuBar';
 import CardView from '../../../component/CardView';
 import PostDetail from './PostDetail';
@@ -9,13 +9,13 @@ import Magazine_Thumbnail_1 from '../../../assets/Magazine_Thumbnail_1.svg';
 
 const Stack = createNativeStackNavigator();
 
-const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-function MagazineHome({navigation}) {
+function MagazineHome({ navigation }) {
   const [posts, setPosts] = React.useState([]);
 
   const handlePostClick = postId => {
-    navigation.navigate('PostDetail', {postId});
+    navigation.navigate('PostDetail', { postId });
   };
 
   const tempData = [
@@ -38,22 +38,23 @@ function MagazineHome({navigation}) {
         '아직도 노래방에서 무작정 노래를 부르나요? 효과적인 노래방에서의 연습 방법을 알려드립니다.',
     },
   ];
+
   React.useEffect(() => {
     setPosts(tempData);
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <TopMenuBar />
-      <View style={{marginLeft: 30}}>
-        <Text style={{fontSize: 26, fontWeight: 'bold'}}>매거진</Text>
+      <View style={{ marginLeft: 30 }}>
+        <Text style={{ fontSize: 26, fontWeight: 'bold' }}>매거진</Text>
       </View>
-      <View style={{flex: 1, margin: 30}}>
+      <View style={{ flex: 1, margin: 30 }}>
         <ScrollView
           //pagingEnabled
           showsVerticalScrollIndicator={false}
           indicatorStyle="white"
-          contentContainerStyle={{gap: 10}}>
+          contentContainerStyle={{ gap: 10 }}>
           {posts.length === 0 ? (
             <Text>There is no content..</Text>
           ) : (
@@ -71,7 +72,7 @@ function MagazineHome({navigation}) {
                   }}>
                   <Magazine_Thumbnail_1 />
                 </View>
-                <View style={{padding: 20}}>
+                <View style={{ padding: 20 }}>
                   <Text style={styles.sectionTitle}>{content.title}</Text>
                   <Text style={styles.sectionContent}>{content.content}</Text>
                 </View>
@@ -111,10 +112,10 @@ const styles = StyleSheet.create({
   },
 });
 
-function Magazine({navigation}) {
+function Magazine() {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Group screenOptions={{headerShown: false}}>
+      <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={MagazineHome} />
         <Stack.Screen name="PostDetail" component={PostDetail} />
       </Stack.Group>
