@@ -1,14 +1,15 @@
-import {useRoute} from '@react-navigation/native';
-import {View, Text, StyleSheet} from 'react-native';
+import * as React from 'react';
+import { useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet } from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import CardView from '../../../component/CardView';
 
 import Magazine_Featured_1 from '../../../assets/Magazine_Featured_1.svg';
 
 const PostDetail = () => {
   const route = useRoute();
-  const {postId} = route.params;
+  const { postId } = route.params;
 
   // postId를 이용하여 게시물 정보를 가져온다.
   const tempData = [
@@ -28,13 +29,13 @@ const PostDetail = () => {
     },
   ];
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <TopMenuBar />
-      <View style={{flex: 1, margin: 30}}>
+      <View style={{ flex: 1, margin: 30 }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           indicatorStyle="white"
-          contentContainerStyle={{gap: 10}}>
+          contentContainerStyle={{ gap: 10 }}>
           <CardView style={styles.card}>
             <View
               style={{
@@ -45,7 +46,7 @@ const PostDetail = () => {
               }}>
               <Magazine_Featured_1 />
             </View>
-            <View style={{padding: 20}}>
+            <View style={{ padding: 20 }}>
               {tempData[postId] === (null || undefined) ? (
                 <Text>Error: No data</Text>
               ) : (

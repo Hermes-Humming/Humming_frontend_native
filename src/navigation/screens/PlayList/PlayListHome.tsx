@@ -10,10 +10,15 @@ import CardView from '../../../component/CardView';
 import PlayList_Thumbnail_1 from '../../../assets/The_Band_1.svg';
 import PlayList_Thumbnail_2 from '../../../assets/The_Band_2.svg';
 import PlayList_Thumbnail_3 from '../../../assets/The_Band_3.svg';
+import PlayListDetail from './PlayListDetail';
 
 const Stack = createNativeStackNavigator();
 
-function PlayListHome() {
+function PlayListHome({ navigation }) {
+  const handlePostClick = (playListId: number) => {
+    navigation.navigate('PlayListDetail', { playListId });
+  };
+
   return (
     <View style={styles.mainContainer}>
       <TopMenuBar />
@@ -26,7 +31,9 @@ function PlayListHome() {
           indicatorStyle="white"
           horizontal={true}
           contentContainerStyle={{ gap: 10 }}>
-          <CardView style={styles.card}>
+          <CardView
+            style={styles.card}
+            onPress={() => handlePostClick({ playListId: 1 })}>
             <View
               style={{
                 flex: 2,
@@ -81,11 +88,12 @@ function PlayListHome() {
   );
 }
 
-function PlayList() {
+function PlayList({ navigation }) {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={PlayListHome} />
+        <Stack.Screen name="PlayListDetail" component={PlayListDetail} />
       </Stack.Group>
     </Stack.Navigator>
   );
