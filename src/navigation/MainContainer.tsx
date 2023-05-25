@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // Main Screens
 import HomeScreen from './screens/Magazine/MagazineScreen';
 import AnalysisScreen from './screens/Analysis/AnalysisHome';
-import SettingsScreen from './screens/PlaylistScreen';
+import PlayListScreen from './screens/PlayList/PlayListHome';
 import MyPageScreen from './screens/Users/MyPage';
 //import VoiceRecordTestScreen from './screens/AnalyticsScreen';
 
@@ -77,7 +77,7 @@ export default function MainContainer() {
         />
         <Tab.Screen
           name={playlistName}
-          component={SettingsScreen}
+          component={PlayListScreen}
           options={{tabBarActiveTintColor: '#7B61FF'}}
         />
         <Tab.Screen

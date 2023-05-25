@@ -2,7 +2,6 @@ import * as React from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
 import TopMenuBar from '../../../component/TopMenuBar';
 import CardView from '../../../component/CardView';
 import PostDetail from './PostDetail';
@@ -10,8 +9,6 @@ import Magazine_Thumbnail_1 from '../../../assets/Magazine_Thumbnail_1.svg';
 
 const Stack = createNativeStackNavigator();
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 function MagazineHome({navigation}) {
