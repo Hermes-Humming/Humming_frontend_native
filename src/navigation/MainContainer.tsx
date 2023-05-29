@@ -46,8 +46,21 @@ export default function MainContainer() {
 
   const setLoginStatus = async () => {
     try {
+      // 로그인 화면 보고 싶으면 이 주석을 지우면 됩니다.
+      /*
+      try {
+        const res = AsyncStorage.removeItem('loginStatus');
+        console.log(res);
+      } catch (e) {
+        console.log('지우기 실패!');
+      }*/
       let checkLogin = await AsyncStorage.getItem('loginStatus');
-      if (checkLogin !== null) setIsLoggedIn(JSON.parse(checkLogin));
+      if (checkLogin !== null) {
+        setIsLoggedIn(JSON.parse(checkLogin));
+        console.log(`MainContainer: ${checkLogin}`);
+      } else {
+        console.log('MainContainer: 로그인 정보가 없습니다.');
+      }
     } catch (e) {
       console.log('MainContainer: 로그인 정보 가져오기 실패했습니다.');
       setIsLoggedIn(false);

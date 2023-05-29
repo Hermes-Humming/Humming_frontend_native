@@ -62,10 +62,10 @@ const LoginScreen = ({navigation}: LoginScreenProps) => {
         console.log(value);
         navigation.navigate('Welcome');
       } catch (e) {
-        console.log('저장된 정보가 없습니다.\n');
+        console.log('Login Page: 저장된 정보가 없습니다.\n');
       }
     } catch (e) {
-      console.log('로그인 상태를 저장하지 못했습니다.\n');
+      console.log('Login Page: 로그인 상태를 저장하지 못했습니다.\n');
     }
   };
 
