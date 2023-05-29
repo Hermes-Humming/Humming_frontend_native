@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoginContext from './LoginContext';
 
 // Main Screens
 import HomeScreen from './screens/Magazine/MagazineScreen';
@@ -42,8 +43,8 @@ const Tab = createBottomTabNavigator();
 //let isLoggedIn = false; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
 
 export default function MainContainer() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  /*
   const setLoginStatus = async () => {
     try {
       // 로그인 화면 보고 싶으면 이 주석을 지우면 됩니다.
@@ -52,7 +53,7 @@ export default function MainContainer() {
         console.log(res);
       } catch (e) {
         console.log('지우기 실패!');
-      }*/
+      }
       let checkLogin = await AsyncStorage.getItem('loginStatus');
       if (checkLogin !== null) {
         setIsLoggedIn(JSON.parse(checkLogin));
@@ -69,6 +70,13 @@ export default function MainContainer() {
   useEffect(() => {
     setLoginStatus();
   }, []);
+  */
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const myContext = useContext(LoginContext);
+  console.log(`mainContainer:${isLoggedIn}`);
+  useEffect(() => {
+    setIsLoggedIn(myContext.status);
+  }, [myContext.status]);
 
   return isLoggedIn ? (
     <NavigationContainer>
