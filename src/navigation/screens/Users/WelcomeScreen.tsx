@@ -34,7 +34,7 @@ const WelcomeScreen = ({navigation}: WelcomeScreenProps) => {
       await AsyncStorage.setItem('loginStatus', 'true');
       try {
         const value = await AsyncStorage.getItem('loginStatus');
-        console.log(`Welcome Paage에서 저장된 값: ${value}`);
+        console.log(`Welcome Page에서 저장된 값: ${value}`);
         myContext.checkLogin();
       } catch (e) {
         console.log('Welcome Page: 저장된 정보가 없습니다.\n');
