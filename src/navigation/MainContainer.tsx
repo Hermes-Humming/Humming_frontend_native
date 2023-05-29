@@ -47,8 +47,7 @@ export default function MainContainer() {
   const setLoginStatus = async () => {
     try {
       // 로그인 화면 보고 싶으면 이 주석을 지우면 됩니다.
-      /*
-      try {
+      /*try {
         const res = AsyncStorage.removeItem('loginStatus');
         console.log(res);
       } catch (e) {
