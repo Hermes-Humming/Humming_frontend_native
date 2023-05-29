@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {useState, useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Main Screens
 import HomeScreen from './screens/Magazine/MagazineScreen';
@@ -37,9 +39,25 @@ const Tab = createBottomTabNavigator();
   return <View />;
 }*/
 
-let isLoggedIn = true; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
+//let isLoggedIn = false; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
 
 export default function MainContainer() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const setLoginStatus = async () => {
+    try {
+      let checkLogin = await AsyncStorage.getItem('loginStatus');
+      if (checkLogin !== null) setIsLoggedIn(JSON.parse(checkLogin));
+    } catch (e) {
+      console.log('MainContainer: 로그인 정보 가져오기 실패했습니다.');
+      setIsLoggedIn(false);
+    }
+  };
+
+  useEffect(() => {
+    setLoginStatus();
+  }, []);
+
   return isLoggedIn ? (
     <NavigationContainer>
       <Tab.Navigator
