@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
 import {TextInput} from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoginContext from '../../LoginContext';
 
 //asset
 import GotoSignUp from '../../../assets/GoToSignUp.svg';
@@ -51,6 +53,24 @@ const LoginScreen = ({navigation}: LoginScreenProps) => {
     if (emailError == false && pwError == false) setbtnDisableState(false);
     else setbtnDisableState(true);
   }, [emailError, pwError]);
+
+  const myContext = useContext(LoginContext);
+
+  const successLogin = async () => {
+    //api 연결해서 await으로 200을 받으면 async에 저장하게 하는 부분 필요
+    try {
+      await AsyncStorage.setItem('loginStatus', 'true');
+      try {
+        const value = await AsyncStorage.getItem('loginStatus');
+        console.log(`Login Page에서 저장된 값: ${value}`);
+        myContext.checkLogin(); //App으로 전달 잘 됨
+      } catch (e) {
+        console.log('Login Page: 저장된 정보가 없습니다.\n');
+      }
+    } catch (e) {
+      console.log('Login Page: 로그인 상태를 저장하지 못했습니다.\n');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -109,7 +129,7 @@ const LoginScreen = ({navigation}: LoginScreenProps) => {
       <View style={styles.btmArea}>
         <TouchableOpacity
           disabled={btnDisableState}
-          onPress={() => navigation.navigate('Welcome')}
+          onPress={successLogin}
           style={
             btnDisableState ? styles.nextDisableBtnBox : styles.nextBtnBox
           }>

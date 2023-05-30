@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {useState, useEffect, useContext} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import LoginContext from './LoginContext';
 
 // Main Screens
 import HomeScreen from './screens/Magazine/MagazineScreen';
@@ -31,15 +33,15 @@ const playlistName = '플레이리스트';
 const mypageName = '마이페이지';
 
 const Tab = createBottomTabNavigator();
-//const Stack = createNativeStackNavigator();
-
-/*function EmptyScreen() {
-  return <View />;
-}*/
-
-let isLoggedIn = true; //storage로 로그인 상태 관리 하는 것으로 바꿔야 함
 
 export default function MainContainer() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const myContext = useContext(LoginContext);
+  console.log(`mainContainer:${isLoggedIn}`);
+  useEffect(() => {
+    setIsLoggedIn(myContext.status);
+  }, [myContext.status]);
+
   return isLoggedIn ? (
     <NavigationContainer>
       <Tab.Navigator
