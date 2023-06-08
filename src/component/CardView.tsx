@@ -1,15 +1,17 @@
-import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-const CardView = (props) => {
+import React from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+const CardView = props => {
   return (
-    <TouchableOpacity style={{ ...styles.card, ...props.style }} onPress={props.onPress}>
+    <TouchableOpacity
+      style={{ ...styles.card, ...props.style }}
+      onPress={props.onPress}>
       {props.children}
     </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
   card: {
-    shadowColor: "black",
+    shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.26,
