@@ -18,6 +18,8 @@ const PlayListRow = ({ song }) => {
       }
       console.log(
         'duration in seconds: ' +
+          soundPath +
+          'duration in seconds: ' +
           music.current.getDuration() +
           'number of channels: ' +
           music.current.getNumberOfChannels(),

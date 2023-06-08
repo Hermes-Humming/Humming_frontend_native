@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-
 import PlayList_Thumbnail_1 from '../../../assets/The_Band_1.svg';
 import { ScrollView } from 'react-native-gesture-handler';
 import PlayListRow from '../../../component/PlayListRow';
@@ -12,38 +11,38 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const tempData = [
   {
     id: 0,
-    title: '추억속의 그대',
-    singer: '이승기',
+    title: 'Queencard',
+    singer: 'GIDLE',
     soundPath: 'queencard',
   },
   {
     id: 1,
-    title: '다시 사랑한다 말할까',
-    singer: '김동률',
+    title: 'IDOL',
+    singer: 'YOASOBI',
     soundPath: 'idol',
   },
   {
     id: 2,
-    title: '정거장',
-    singer: '이석훈',
+    title: 'I AM',
+    singer: 'IVE',
     soundPath: 'iam',
   },
   {
     id: 3,
-    title: '출발',
-    singer: '김동률',
+    title: 'NIGHT DANCER',
+    singer: 'imase',
     soundPath: 'nightdancer',
   },
   {
     id: 4,
-    title: '아는사람 얘기',
-    singer: '산이',
+    title: 'Spicy',
+    singer: 'aespa',
     soundPath: 'spicy',
   },
   {
     id: 5,
-    title: '먹지',
-    singer: '예성',
+    title: 'Cupid',
+    singer: 'FIFTY FIFTY',
     soundPath: 'cupid',
   },
   {
@@ -144,7 +143,7 @@ const tempData = [
   },
   {
     id: 22,
-    title: '를伝えたいだとか 사랑을 전하고 싶다든가',
+    title: '사랑을 전하고 싶다든가',
     singer: 'あいみょん 아이묭',
     soundPath: 'aiostaetaitoka',
   },
@@ -192,7 +191,7 @@ const tempData = [
   },
 ];
 
-function PlayListDetail() {
+function PlayListDetail2() {
   const route = useRoute();
   const { playListId } = route.params;
 
@@ -206,9 +205,9 @@ function PlayListDetail() {
           />
         </View>
         <View style={styles.coverSection}>
-          <Text style={styles.sectionTitle}>중저음의 당신을 위한 플리</Text>
+          <Text style={styles.sectionTitle}>노래방 인기차트 TOP 30</Text>
           <Text style={styles.sectionContent}>
-            저음에 익숙한 당신에게 추천해요
+            상위 인기 차트 중 30곡 리스트에요
           </Text>
         </View>
       </View>
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderBottomEndRadius: 45,
     borderBottomLeftRadius: 45,
-    backgroundColor: '#A6B9FF', // 파란색 배경
+    backgroundColor: '#FFC76E', // 파란색 배경
   },
   bottomContainer: {
     flex: 1,
@@ -246,7 +245,7 @@ const styles = StyleSheet.create({
   imgCoverSection: {
     flex: 2,
     padding: 20,
-    backgroundColor: '#A6B9FF',
+    backgroundColor: '#FFC76E',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -271,4 +270,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlayListDetail;
+export default PlayListDetail2;

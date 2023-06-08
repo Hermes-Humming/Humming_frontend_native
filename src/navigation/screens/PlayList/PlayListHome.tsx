@@ -11,12 +11,16 @@ import PlayList_Thumbnail_1 from '../../../assets/The_Band_1.svg';
 import PlayList_Thumbnail_2 from '../../../assets/The_Band_2.svg';
 import PlayList_Thumbnail_3 from '../../../assets/The_Band_3.svg';
 import PlayListDetail from './PlayListDetail';
+import PlayListDetail2 from './PlayListDetail2';
 
 const Stack = createNativeStackNavigator();
 
 function PlayListHome({ navigation }) {
   const handlePostClick = (playListId: number) => {
-    navigation.navigate('PlayListDetail', { playListId });
+    console.log(playListId);
+    if (playListId === 1) navigation.navigate('PlayListDetail', { playListId });
+    if (playListId === 2)
+      navigation.navigate('PlayListDetail2', { playListId });
   };
 
   return (
@@ -31,9 +35,7 @@ function PlayListHome({ navigation }) {
           indicatorStyle="white"
           horizontal={true}
           contentContainerStyle={{ gap: 10 }}>
-          <CardView
-            style={styles.card}
-            onPress={() => handlePostClick({ playListId: 1 })}>
+          <CardView style={styles.card} onPress={() => handlePostClick(1)}>
             <View
               style={{
                 flex: 2,
@@ -44,12 +46,12 @@ function PlayListHome({ navigation }) {
               <PlayList_Thumbnail_1 />
             </View>
             <View style={{ flex: 1, padding: 20 }}>
-              <Text style={styles.sectionContent}>C2~D3 음역대 추천</Text>
+              <Text style={styles.sectionContent}>D3~D#5 음역대 추천</Text>
               <Text style={styles.sectionTitle}>중저음의 당신을 위한 플리</Text>
             </View>
           </CardView>
 
-          <CardView style={styles.card}>
+          <CardView style={styles.card} onPress={() => handlePostClick(2)}>
             <View
               style={{
                 flex: 2,
@@ -94,6 +96,7 @@ function PlayList({ navigation }) {
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={PlayListHome} />
         <Stack.Screen name="PlayListDetail" component={PlayListDetail} />
+        <Stack.Screen name="PlayListDetail2" component={PlayListDetail2} />
       </Stack.Group>
     </Stack.Navigator>
   );

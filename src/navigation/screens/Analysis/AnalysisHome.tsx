@@ -33,7 +33,7 @@ function AnalysisHome({ navigation }: any) {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <TrebleClef />
+                <TrebleClef height="70px" width="70px" />
               </View>
               <View
                 style={{
@@ -42,7 +42,7 @@ function AnalysisHome({ navigation }: any) {
                   alignItems: 'center',
                 }}>
                 <Text style={styles.sectionTitle}>중저음 테너</Text>
-                <Text style={{ fontSize: 13 }}>최저음: E#2 / 최고음 G#4</Text>
+                <Text style={{ fontSize: 13 }}>최저음: D3 / 최고음 C#5</Text>
               </View>
             </CardView>
           </View>
@@ -69,8 +69,9 @@ function AnalysisHome({ navigation }: any) {
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  marginTop: 10,
                 }}>
-                <BandSpeaker />
+                <BandSpeaker height="70px" width="70px" />
               </View>
             </CardView>
             <CardView
@@ -82,15 +83,16 @@ function AnalysisHome({ navigation }: any) {
               onPress={() => navigation.navigate('AITrainingCenter')}>
               <Text style={styles.sectionTitle}>AI{'\n'}음성 합성</Text>
               <Text style={{ fontSize: 13 }}>
-                내 목소리를 학습한 AI로 노래를 미리 들어봐요
+                내 음성을 학습한 AI로 노래를 미리 들어봐요
               </Text>
               <View
                 style={{
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  marginTop: 10,
                 }}>
-                <BandNotes />
+                <BandNotes height="70px" width="70px" />
               </View>
             </CardView>
           </View>
