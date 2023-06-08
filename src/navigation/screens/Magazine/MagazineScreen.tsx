@@ -47,7 +47,9 @@ function MagazineHome({ navigation }) {
     <View style={{ flex: 1 }}>
       <TopMenuBar />
       <View style={{ marginLeft: 30 }}>
-        <Text style={{ fontSize: 26, fontWeight: 'bold' }}>매거진</Text>
+        <Text style={{ fontSize: 26, fontWeight: 'bold', color: 'black' }}>
+          매거진
+        </Text>
       </View>
       <View style={{ flex: 1, margin: 30 }}>
         <ScrollView
