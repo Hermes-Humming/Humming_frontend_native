@@ -5,3 +5,4 @@ declare module '*.svg' {
   export default content;
 }
 declare module 'react-native-pitch-detector';
+declare module 'react-native-vector-icons/Ionicons';
