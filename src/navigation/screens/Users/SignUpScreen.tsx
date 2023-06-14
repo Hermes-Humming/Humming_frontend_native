@@ -53,7 +53,7 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   }, [userNickName]);
 
   const [pwVisible, setPWVisible] = useState<Boolean>(false); //비밀번호 보이고 안보이게 하기
-  const [errorLogin, setErrorLogin] = useState<Boolean>(false); //로그인 상태 오류 체크, 추후 API 연결해야함
+  const [errorLogin, setErrorLogin] = useState<Boolean>(false); //로그인 상태 오류 체크
 
   //버튼 활성화, 비활성화
   const [btnDisableState, setbtnDisableState] = useState<boolean>(true);
@@ -65,9 +65,14 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
 
   const pressBtn = async () => {
     const response = await userService.signUp(userEmail, userNickName, userPW);
-    console.log(response);
-    if (response.status == 200) {
+    if (response == 201) {
+      setErrorLogin(false);
       navigation.navigate('Welcome');
+    } else {
+      setErrorLogin(true);
+      setTimeout(() => {
+        setErrorLogin(false);
+      }, 2000);
     }
   };
 
@@ -146,7 +151,7 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
       <View style={styles.btmArea}>
         <TouchableOpacity
           disabled={btnDisableState}
-          onPress={() => pressBtn}
+          onPress={pressBtn}
           style={
             btnDisableState ? styles.nextDisableBtnBox : styles.nextBtnBox
           }>
@@ -237,7 +242,7 @@ const styles = StyleSheet.create({
   },
 
   errorPannel: {
-    marginTop: 30,
+    marginTop: 5,
     alignItems: 'center',
   },
 });
