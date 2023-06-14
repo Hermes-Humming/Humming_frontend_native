@@ -15,6 +15,7 @@ class userService {
       return -1;
     }
   }
+  async signIn(email: string, password: string) {}
 }
 
 export default new userService();
