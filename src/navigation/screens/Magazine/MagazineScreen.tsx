@@ -62,10 +62,10 @@ function MagazineHome({ navigation }) {
           ) : (
             posts.map((content, index) => (
               <CardView
+                key={content.id}
                 style={styles.card}
                 onPress={() => handlePostClick(content.id)}>
                 <View
-                  key={index}
                   style={{
                     flex: 2,
                     backgroundColor: '#e8eef3',
@@ -92,9 +92,8 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     width: '100%',
-    height: SCREEN_HEIGHT / 3,
-    minHeight: 280,
-    maxHeight: 400,
+    height: 300,
+
     backgroundColor: 'white',
     justifyContent: 'center',
     padding: 0,
