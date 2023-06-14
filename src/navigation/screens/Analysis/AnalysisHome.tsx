@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { View, Text, StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PitchDetect from './VoicePitchDetector';
 import TopMenuBar from '../../../component/TopMenuBar';
 import CardView from '../../../component/CardView';
@@ -9,21 +9,23 @@ import TrebleClef from '../../../assets/TrebleClef.svg';
 import BandNotes from '../../../assets/BandNotes.svg';
 import BandSpeaker from '../../../assets/BandSpeaker.svg';
 
-import {AnalysisStackParamList} from '../../../types/stacks/AnalysisStackTypes';
+import { AnalysisStackParamList } from '../../../types/stacks/AnalysisStackTypes';
 const Stack = createNativeStackNavigator<AnalysisStackParamList>();
 
 import AITraining from './AITrainig/AITrainig';
 
-function AnalysisHome({navigation}: any) {
+function AnalysisHome({ navigation }: any) {
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <TopMenuBar />
-      <View style={{marginLeft: 30}}>
-        <Text style={{fontSize: 26, fontWeight: 'bold'}}>분석</Text>
+      <View style={{ marginLeft: 30 }}>
+        <Text style={{ fontSize: 26, fontWeight: 'bold', color: 'black' }}>
+          분석
+        </Text>
       </View>
-      <View style={{flex: 1, margin: 30}}>
-        <View style={{flex: 15, gap: 10}}>
-          <View style={{flex: 3}}>
+      <View style={{ flex: 1, margin: 30 }}>
+        <View style={{ flex: 15, gap: 10 }}>
+          <View style={{ flex: 3 }}>
             <CardView style={styles.card}>
               <View
                 style={{
@@ -31,7 +33,7 @@ function AnalysisHome({navigation}: any) {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <TrebleClef />
+                <TrebleClef height="70px" width="70px" />
               </View>
               <View
                 style={{
@@ -40,7 +42,7 @@ function AnalysisHome({navigation}: any) {
                   alignItems: 'center',
                 }}>
                 <Text style={styles.sectionTitle}>중저음 테너</Text>
-                <Text style={{fontSize: 13}}>최저음: E#2 / 최고음 G#4</Text>
+                <Text style={{ fontSize: 13 }}>최저음: D3 / 최고음 C#5</Text>
               </View>
             </CardView>
           </View>
@@ -59,7 +61,7 @@ function AnalysisHome({navigation}: any) {
               }}
               onPress={() => navigation.navigate('PitchDetect')}>
               <Text style={styles.sectionTitle}>목소리{'\n'}음역 측정</Text>
-              <Text style={{fontSize: 13}}>
+              <Text style={{ fontSize: 13 }}>
                 간단한 테스트로 내 음역대를 알아봐요
               </Text>
               <View
@@ -67,8 +69,9 @@ function AnalysisHome({navigation}: any) {
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  marginTop: 10,
                 }}>
-                <BandSpeaker />
+                <BandSpeaker height="70px" width="70px" />
               </View>
             </CardView>
             <CardView
@@ -79,21 +82,22 @@ function AnalysisHome({navigation}: any) {
               }}
               onPress={() => navigation.navigate('AITrainingCenter')}>
               <Text style={styles.sectionTitle}>AI{'\n'}음성 합성</Text>
-              <Text style={{fontSize: 13}}>
-                내 목소리를 학습한 AI로 노래를 미리 들어봐요
+              <Text style={{ fontSize: 13 }}>
+                내 음성을 학습한 AI로 노래를 미리 들어봐요
               </Text>
               <View
                 style={{
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  marginTop: 10,
                 }}>
-                <BandNotes />
+                <BandNotes height="70px" width="70px" />
               </View>
             </CardView>
           </View>
         </View>
-        <View style={{flex: 1}}></View>
+        <View style={{ flex: 1 }}></View>
       </View>
     </View>
   );
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
 function Analysis() {
   return (
     <Stack.Navigator initialRouteName="AnalysisHome">
-      <Stack.Group screenOptions={{headerShown: false}}>
+      <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="AnalysisHome" component={AnalysisHome} />
         <Stack.Screen name="PitchDetect" component={PitchDetect} />
         <Stack.Screen name="AITrainingCenter" component={AITraining} />

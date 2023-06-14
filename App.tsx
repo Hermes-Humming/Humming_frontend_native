@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import MainContainer from './src/navigation/MainContainer';
 import LoginContext from './src/navigation/LoginContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+//412 851
 function App() {
   const [loginStatus, setLoginStatus] = useState(false);
   const checkLogin = async () => {
