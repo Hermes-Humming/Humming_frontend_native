@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
 import { TextInput } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import userService from '../../../services/userService';
 
 //asset
@@ -65,10 +66,18 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
 
   const pressBtn = async () => {
     const response = await userService.signUp(userEmail, userNickName, userPW);
-    if (response == 201) {
+    if (response.status == 201) {
       setErrorLogin(false);
-      navigation.navigate('Welcome');
+      try {
+        await AsyncStorage.setItem('accessToken', response.data.accessToken);
+        const v = await AsyncStorage.getItem('accessToken');
+        console.log(v); //accessToken 확인가능
+        navigation.navigate('Welcome');
+      } catch (e) {
+        console.log('회원가입 성공했으나 accesstoken 저장 안됨.');
+      }
     } else {
+      //이메일이 동일하거나, 닉네임이 동일할 때 발생
       setErrorLogin(true);
       setTimeout(() => {
         setErrorLogin(false);

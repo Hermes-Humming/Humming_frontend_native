@@ -9,8 +9,7 @@ class userService {
         nickname: nickname,
         password: password,
       });
-      console.log(response);
-      return response.status;
+      return response;
     } catch (e) {
       console.log(e);
       return -1;
