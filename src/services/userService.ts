@@ -9,11 +9,13 @@ class userService {
         nickname: nickname,
         password: password,
       });
+      return response;
     } catch (e) {
       console.log(e);
       return -1;
     }
   }
+  async signIn(email: string, password: string) {}
 }
 
 export default new userService();
