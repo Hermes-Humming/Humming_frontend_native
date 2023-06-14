@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,21 +8,22 @@ import {
   Dimensions,
 } from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
-import {TextInput} from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
+import userService from '../../../services/userService';
 
 //asset
 import GotoLogin from '../../../assets/GoToLogin.svg';
 
 //User Stack
-import {StackScreenProps} from '@react-navigation/stack';
-import {UserStackParamList} from '../../../types/stacks/UserStackTypes';
+import { StackScreenProps } from '@react-navigation/stack';
+import { UserStackParamList } from '../../../types/stacks/UserStackTypes';
 
 //Export type
 export type SignUpScreenProps = StackScreenProps<UserStackParamList, 'SignUp'>;
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-const SignUpScreen = ({navigation}: SignUpScreenProps) => {
+const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   //이메일 입력값 관리
   const [userEmail, setUserEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<Boolean>(true);
@@ -61,6 +62,14 @@ const SignUpScreen = ({navigation}: SignUpScreenProps) => {
       setbtnDisableState(false);
     else setbtnDisableState(true);
   }, [emailError, pwError, nicknameError]);
+
+  const pressBtn = async () => {
+    const response = await userService.signUp(userEmail, userNickName, userPW);
+    console.log(response);
+    if (response.status == 200) {
+      navigation.navigate('Welcome');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -137,7 +146,7 @@ const SignUpScreen = ({navigation}: SignUpScreenProps) => {
       <View style={styles.btmArea}>
         <TouchableOpacity
           disabled={btnDisableState}
-          onPress={() => navigation.navigate('Welcome')}
+          onPress={() => pressBtn}
           style={
             btnDisableState ? styles.nextDisableBtnBox : styles.nextBtnBox
           }>
