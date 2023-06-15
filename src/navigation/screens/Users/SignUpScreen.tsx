@@ -69,10 +69,11 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     if (response.status == 201) {
       setErrorLogin(false);
       try {
-        await AsyncStorage.setItem('accessToken', response.data.accessToken);
-        await AsyncStorage.setItem('email', userEmail);
-        await AsyncStorage.setItem('nickname', userNickName);
-        await AsyncStorage.setItem('loginStatus', 'true');
+        await userService.saveInfo(
+          response.data.accessToken,
+          response.data.email,
+          response.data.nickname,
+        );
         const v = await AsyncStorage.getItem('accessToken');
         console.log(v); //accessToken 확인가능
         navigation.navigate('Welcome');

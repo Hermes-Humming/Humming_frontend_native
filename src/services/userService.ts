@@ -60,6 +60,13 @@ class userService {
   }
 
   //async changePassWord(password:string)
+
+  async saveInfo(accessToken: string, email: string, nickname: string) {
+    await AsyncStorage.setItem('accessToken', accessToken);
+    await AsyncStorage.setItem('email', email);
+    await AsyncStorage.setItem('nickname', nickname);
+    await AsyncStorage.setItem('loginStatus', 'true');
+  }
 }
 
 export default new userService();

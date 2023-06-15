@@ -62,14 +62,13 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
     const response = await userService.signIn(userEmail, userPW);
     if (response.status == 200) {
       try {
-        const value = await AsyncStorage.getItem('loginStatus');
-        await AsyncStorage.setItem('accessToken', response.data.accessToken);
-        await AsyncStorage.setItem('email', userEmail);
-        await AsyncStorage.setItem('nickname', response.data.nickname);
-        await AsyncStorage.setItem('loginStatus', 'true');
+        await userService.saveInfo(
+          response.data.accessToken,
+          response.data.email,
+          response.data.nickname,
+        );
         const v = await AsyncStorage.getItem('accessToken');
         console.log(v); //accessToken 확인가능
-        console.log(`Login Page에서 저장된 값: ${value}`);
         myContext.checkLogin(); //App으로 전달 잘 됨
       } catch (e) {
         console.log('Login Page: 저장된 정보가 없습니다.\n');
