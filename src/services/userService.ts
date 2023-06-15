@@ -59,7 +59,26 @@ class userService {
     }
   }
 
-  //async changePassWord(password:string)
+  async changePassWord(password: string) {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      const response = await axios.patch(
+        `${SERVER_URL}/user/edit-password`,
+        { password: password },
+        {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return response.status;
+    } catch (e) {
+      console.log(e);
+      console.log('비밀번호 변경 실패.');
+      return -1;
+    }
+  }
 
   async saveInfo(accessToken: string, email: string, nickname: string) {
     await AsyncStorage.setItem('accessToken', accessToken);

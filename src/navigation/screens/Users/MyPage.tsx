@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import userService from '../../../services/userService';
 
 const { width, height } = Dimensions.get('window');
 
@@ -28,6 +29,34 @@ const MyPage = () => {
   useEffect(() => {
     initializeInfo();
   }, []);
+
+  const [newName, setNewName] = useState<string>('');
+  const [newPW, setNewPW] = useState<string>('');
+  const [error, setError] = useState(false);
+
+  const changePW = async () => {
+    const response = await userService.changePassWord(newPW);
+    if (response == 200) {
+      console.log('비밀번호변경');
+    } else {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+    }
+  };
+
+  const changeNickName = async () => {
+    const response = await userService.changeNickName(newName);
+    if (response == 200) {
+      setName(newName);
+    } else {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -52,9 +81,27 @@ const MyPage = () => {
             <Text style={styles.inputExplainText}>변경할 비밀번호</Text>
           </View>
           <TextInput
+            onChangeText={pw => setNewPW(pw)}
+            value={newPW}
             style={styles.changePWBox}
             placeholder="변경할 비밀번호를 입력"></TextInput>
-          <TouchableOpacity style={styles.checkIcon}>
+          <TouchableOpacity style={styles.checkIcon} onPress={changePW}>
+            <Icon
+              name="checkmark-circle-outline"
+              size={30}
+              color={'#BAEDE1'}></Icon>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.inputInfoBox}>
+          <View style={styles.inputExplainTextBox}>
+            <Text style={styles.inputExplainText}>변경할 닉네임</Text>
+          </View>
+          <TextInput
+            onChangeText={name => setNewName(name)}
+            value={newName}
+            style={styles.changePWBox}
+            placeholder="변경할 닉네임을 입력"></TextInput>
+          <TouchableOpacity style={styles.checkIcon} onPress={changeNickName}>
             <Icon
               name="checkmark-circle-outline"
               size={30}
