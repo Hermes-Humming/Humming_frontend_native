@@ -18,6 +18,8 @@ import GotoLogin from '../../../assets/GoToLogin.svg';
 //User Stack
 import { StackScreenProps } from '@react-navigation/stack';
 import { UserStackParamList } from '../../../types/stacks/UserStackTypes';
+import DuplicateEmail from '../../../assets/duplicateemail.svg';
+import CanUseEmail from '../../../assets/canuseemail.svg';
 
 //Export type
 export type SignUpScreenProps = StackScreenProps<UserStackParamList, 'SignUp'>;
@@ -59,7 +61,12 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   //버튼 활성화, 비활성화
   const [btnDisableState, setbtnDisableState] = useState<boolean>(true);
   useEffect(() => {
-    if (emailError == false && pwError == false && nicknameError == false)
+    if (
+      emailError == false &&
+      pwError == false &&
+      nicknameError == false &&
+      duplicateEmail == 0
+    )
       setbtnDisableState(false);
     else setbtnDisableState(true);
   }, [emailError, pwError, nicknameError]);
@@ -89,6 +96,22 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     }
   };
 
+  const [duplicateEmail, setDuplicateEmail] = useState(0);
+  const checkEmail = async () => {
+    const response = await userService.checkEmailDuplicate(userEmail);
+    if (response == 200) {
+      setDuplicateEmail(1);
+      setTimeout(() => {
+        setDuplicateEmail(0);
+      }, 2000);
+    } else {
+      setDuplicateEmail(2);
+      setTimeout(() => {
+        setDuplicateEmail(0);
+      }, 2000);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topArea}>
@@ -106,6 +129,13 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
             selectionColor="black"
             outlineColor="#BBA5FF"
             activeOutlineColor="#BBA5FF"
+            right={
+              <TextInput.Icon
+                icon="check"
+                onPress={checkEmail}
+                style={styles.eyeIcon}
+              />
+            }
           />
           {emailError ? (
             <Text style={styles.errorMsg}>올바른 이메일 형식이 아니에요.</Text>
@@ -158,6 +188,16 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
         {errorLogin ? (
           <View style={styles.errorPannel}>
             <GotoLogin width="400" />
+          </View>
+        ) : null}
+        {duplicateEmail == 2 ? (
+          <View style={styles.errorPannel}>
+            <DuplicateEmail width="350" />
+          </View>
+        ) : null}
+        {duplicateEmail == 1 ? (
+          <View style={styles.errorPannel}>
+            <CanUseEmail width="350" />
           </View>
         ) : null}
       </View>

@@ -37,7 +37,6 @@ class userService {
       );
       return response.status;
     } catch (e) {
-      console.log('이메일 중복체크 실패.');
       return -1;
     }
   }

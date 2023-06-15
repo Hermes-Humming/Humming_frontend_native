@@ -15,6 +15,8 @@ import userService from '../../../services/userService';
 //asset
 import Nicknameerror from '../../../assets/nicknameerror.svg';
 import Passworderror from '../../../assets/passworderror.svg';
+import DuplicateEmail from '../../../assets/duplicateemail.svg';
+import CanUseEmail from '../../../assets/canuseemail.svg';
 
 const { width, height } = Dimensions.get('window');
 
