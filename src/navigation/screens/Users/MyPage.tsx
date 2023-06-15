@@ -12,6 +12,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import userService from '../../../services/userService';
 
+//asset
+import Nicknameerror from '../../../assets/nicknameerror.svg';
+import Passworderror from '../../../assets/passworderror.svg';
+
 const { width, height } = Dimensions.get('window');
 
 const MyPage = () => {
@@ -32,16 +36,17 @@ const MyPage = () => {
 
   const [newName, setNewName] = useState<string>('');
   const [newPW, setNewPW] = useState<string>('');
-  const [error, setError] = useState(false);
+  const [newNameError, setNewNameError] = useState(false);
+  const [newPWError, setNewPWError] = useState(false);
 
   const changePW = async () => {
     const response = await userService.changePassWord(newPW);
     if (response == 200) {
       console.log('비밀번호변경');
     } else {
-      setError(true);
+      setNewPWError(true);
       setTimeout(() => {
-        setError(false);
+        setNewPWError(false);
       }, 2000);
     }
   };
@@ -51,9 +56,9 @@ const MyPage = () => {
     if (response == 200) {
       setName(newName);
     } else {
-      setError(true);
+      setNewNameError(true);
       setTimeout(() => {
-        setError(false);
+        setNewNameError(false);
       }, 2000);
     }
   };
@@ -110,9 +115,16 @@ const MyPage = () => {
         </View>
       </View>
       <View style={styles.errorBox}>
-        <Text style={{ paddingLeft: 30 }}>
-          에러 처리 시 오류가 나오는 부분입니다.
-        </Text>
+        {newNameError ? (
+          <View style={styles.errorPannel}>
+            <Nicknameerror width="350" />
+          </View>
+        ) : null}
+        {newPWError ? (
+          <View style={styles.errorPannel}>
+            <Passworderror width="350" />
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -177,5 +189,9 @@ const styles = StyleSheet.create({
   },
   checkIcon: {
     marginLeft: 12,
+  },
+  errorPannel: {
+    marginTop: 5,
+    alignItems: 'center',
   },
 });

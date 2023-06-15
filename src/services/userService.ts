@@ -45,6 +45,7 @@ class userService {
   async changeNickName(nickname: string) {
     try {
       const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log(accessToken);
       const response = await axios.patch(
         `${SERVER_URL}/user/edit-nickname`,
         { nickname: nickname },
@@ -54,6 +55,7 @@ class userService {
       );
       return response.status;
     } catch (e) {
+      console.log(e);
       console.log('닉네임변경 실패.');
       return -1;
     }
@@ -62,12 +64,12 @@ class userService {
   async changePassWord(password: string) {
     try {
       const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log(accessToken);
       const response = await axios.patch(
         `${SERVER_URL}/user/edit-password`,
         { password: password },
         {
           headers: {
-            'X-Requested-With': 'XMLHttpRequest',
             Authorization: `Bearer ${accessToken}`,
           },
         },
