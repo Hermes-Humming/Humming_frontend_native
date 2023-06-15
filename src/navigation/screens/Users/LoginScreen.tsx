@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect, useContext} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -8,23 +8,24 @@ import {
   Dimensions,
 } from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
-import {TextInput} from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginContext from '../../LoginContext';
+import userService from '../../../services/userService';
 
 //asset
 import GotoSignUp from '../../../assets/GoToSignUp.svg';
 
 //User Stack
-import {StackScreenProps} from '@react-navigation/stack';
-import {UserStackParamList} from '../../../types/stacks/UserStackTypes';
+import { StackScreenProps } from '@react-navigation/stack';
+import { UserStackParamList } from '../../../types/stacks/UserStackTypes';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 //Export type
 export type LoginScreenProps = StackScreenProps<UserStackParamList, 'Login'>;
 
-const LoginScreen = ({navigation}: LoginScreenProps) => {
+const LoginScreen = ({ navigation }: LoginScreenProps) => {
   //이메일 입력값 관리
   const [userEmail, setUserEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<Boolean>(true);
@@ -58,17 +59,27 @@ const LoginScreen = ({navigation}: LoginScreenProps) => {
 
   const successLogin = async () => {
     //api 연결해서 await으로 200을 받으면 async에 저장하게 하는 부분 필요
-    try {
-      await AsyncStorage.setItem('loginStatus', 'true');
+    const response = await userService.signIn(userEmail, userPW);
+    if (response.status == 200) {
       try {
         const value = await AsyncStorage.getItem('loginStatus');
+        await AsyncStorage.setItem('accessToken', response.data.accessToken);
+        await AsyncStorage.setItem('email', userEmail);
+        await AsyncStorage.setItem('nickname', response.data.nickname);
+        await AsyncStorage.setItem('loginStatus', 'true');
+        const v = await AsyncStorage.getItem('accessToken');
+        console.log(v); //accessToken 확인가능
         console.log(`Login Page에서 저장된 값: ${value}`);
         myContext.checkLogin(); //App으로 전달 잘 됨
       } catch (e) {
         console.log('Login Page: 저장된 정보가 없습니다.\n');
       }
-    } catch (e) {
-      console.log('Login Page: 로그인 상태를 저장하지 못했습니다.\n');
+    } else {
+      //로그인 실패
+      setErrorLogin(true);
+      setTimeout(() => {
+        setErrorLogin(false);
+      }, 2000);
     }
   };
 

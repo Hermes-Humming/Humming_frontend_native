@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,13 +9,25 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const MyPage = () => {
-  const [name, setName] = useState<string>('이하연');
-  const [email, setEmail] = useState<string>('papepopepe@naver.com');
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [pw, setPW] = useState<string>('**********');
+
+  const initializeInfo = async () => {
+    const saveEmail = await AsyncStorage.getItem('email');
+    const saveNickname = await AsyncStorage.getItem('nickname');
+    setName(saveNickname);
+    setEmail(saveEmail);
+  };
+
+  useEffect(() => {
+    initializeInfo();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -51,7 +63,7 @@ const MyPage = () => {
         </View>
       </View>
       <View style={styles.errorBox}>
-        <Text style={{paddingLeft: 30}}>
+        <Text style={{ paddingLeft: 30 }}>
           에러 처리 시 오류가 나오는 부분입니다.
         </Text>
       </View>

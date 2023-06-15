@@ -16,7 +16,19 @@ class userService {
       return -1;
     }
   }
-  //async signIn(email: string, password: string) {}
+
+  async signIn(email: string, password: string) {
+    try {
+      const response = await axios.post(`${SERVER_URL}/user/login`, {
+        email: email,
+        password: password,
+      });
+      return response;
+    } catch (e) {
+      console.log(e);
+      return -1;
+    }
+  }
 
   async checkEmailDuplicate(email: string) {
     try {
@@ -46,6 +58,8 @@ class userService {
       return -1;
     }
   }
+
+  //async changePassWord(password:string)
 }
 
 export default new userService();
