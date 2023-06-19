@@ -8,45 +8,45 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 //우리가 만든 모듈들
 import TopMenuBar from '../../../../component/TopMenuBar';
-import {Lyrics} from '../../../../data/lyrics';
+import { Lyrics } from '../../../../data/lyrics';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
-import {StackScreenProps} from '@react-navigation/stack';
+import { AITrainingStackParamList } from '../../../../types/stacks/AITrainingStackTypes';
+import { StackScreenProps } from '@react-navigation/stack';
 
 export type TrainingVoiceProps = StackScreenProps<
   AITrainingStackParamList,
   'TrainingVoice'
 >;
 
-const TrainingVoice = ({navigation}: TrainingVoiceProps) => {
+const TrainingVoice = ({ navigation }: TrainingVoiceProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topMenuBar}>
         <TopMenuBar />
       </View>
-      <View style={{flex: 80}}>
+      <View style={{ flex: 80 }}>
         <Text style={styles.titleText}>AI 목소리 학습</Text>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: 'center' }}>
           <View style={styles.countdownCircle}>
             <CountdownCircleTimer
               isPlaying
               duration={30}
               colors={['#004777', '#F7B801', '#A30000', '#A30000']}
               colorsTime={[30, 20, 10, 0]}>
-              {({remainingTime}) => (
-                <Text style={{fontSize: 30, color: 'black'}}>
+              {({ remainingTime }) => (
+                <Text style={{ fontSize: 30, color: 'black' }}>
                   {Math.floor((remainingTime / 30) * 100)}%
                 </Text>
               )}
             </CountdownCircleTimer>
           </View>
-          <View style={{alignItems: 'center', marginBottom: 30}}>
+          <View style={{ alignItems: 'center', marginBottom: 30 }}>
             <Text style={styles.noticeText}>
               AI 목소리 학습을 진행합니다.{'\n'}
             </Text>

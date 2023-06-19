@@ -30,6 +30,11 @@ const MyPage = () => {
     setEmail(saveEmail);
   };
 
+  const changeInfo = async () => {
+    const changeName = await AsyncStorage.setItem('nickname', newName);
+    initializeInfo();
+  };
+
   useEffect(() => {
     initializeInfo();
   }, []);
@@ -55,6 +60,7 @@ const MyPage = () => {
     const response = await userService.changeNickName(newName);
     if (response == 200) {
       setName(newName);
+      changeInfo();
     } else {
       setNewNameError(true);
       setTimeout(() => {
