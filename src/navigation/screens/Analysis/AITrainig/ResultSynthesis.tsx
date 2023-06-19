@@ -47,9 +47,8 @@ const ResultSynthesis = () => {
             <Text style={styles.noticeText}>목소리 합성 완료!{'\n'}</Text>
             <Text style={styles.noticeText}>한 번 들어볼까요?</Text>
           </View>
-          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <Text>음악 플레이어가 들어갈 자리입니다.</Text>
-          </View>
+          <View
+            style={{ alignItems: 'center', justifyContent: 'center' }}></View>
         </View>
       </View>
       <View style={{ flex: 20, alignItems: 'center' }}>
