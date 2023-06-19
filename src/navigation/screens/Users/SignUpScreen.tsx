@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import TopMenuBar from '../../../component/TopMenuBar';
 import { TextInput } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import userService from '../../../services/userService';
 
 //asset
@@ -17,6 +18,8 @@ import GotoLogin from '../../../assets/GoToLogin.svg';
 //User Stack
 import { StackScreenProps } from '@react-navigation/stack';
 import { UserStackParamList } from '../../../types/stacks/UserStackTypes';
+import DuplicateEmail from '../../../assets/duplicateemail.svg';
+import CanUseEmail from '../../../assets/canuseemail.svg';
 
 //Export type
 export type SignUpScreenProps = StackScreenProps<UserStackParamList, 'SignUp'>;
@@ -53,21 +56,59 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   }, [userNickName]);
 
   const [pwVisible, setPWVisible] = useState<Boolean>(false); //비밀번호 보이고 안보이게 하기
-  const [errorLogin, setErrorLogin] = useState<Boolean>(false); //로그인 상태 오류 체크, 추후 API 연결해야함
+  const [errorLogin, setErrorLogin] = useState<Boolean>(false); //로그인 상태 오류 체크
 
   //버튼 활성화, 비활성화
   const [btnDisableState, setbtnDisableState] = useState<boolean>(true);
   useEffect(() => {
-    if (emailError == false && pwError == false && nicknameError == false)
+    if (
+      emailError == false &&
+      pwError == false &&
+      nicknameError == false &&
+      duplicateEmail == 0
+    )
       setbtnDisableState(false);
     else setbtnDisableState(true);
   }, [emailError, pwError, nicknameError]);
 
   const pressBtn = async () => {
     const response = await userService.signUp(userEmail, userNickName, userPW);
-    console.log(response);
-    if (response.status == 200) {
-      navigation.navigate('Welcome');
+    if (response.status == 201) {
+      setErrorLogin(false);
+      try {
+        await userService.saveInfo(
+          response.data.accessToken,
+          response.data.email,
+          response.data.nickname,
+        );
+        const v = await AsyncStorage.getItem('accessToken');
+        console.log(v); //accessToken 확인가능
+        navigation.navigate('Welcome');
+      } catch (e) {
+        console.log('회원가입 성공했으나 accesstoken 저장 안됨.');
+      }
+    } else {
+      //이메일이 동일하거나, 닉네임이 동일할 때 발생
+      setErrorLogin(true);
+      setTimeout(() => {
+        setErrorLogin(false);
+      }, 2000);
+    }
+  };
+
+  const [duplicateEmail, setDuplicateEmail] = useState(0);
+  const checkEmail = async () => {
+    const response = await userService.checkEmailDuplicate(userEmail);
+    if (response == 200) {
+      setDuplicateEmail(1);
+      setTimeout(() => {
+        setDuplicateEmail(0);
+      }, 2000);
+    } else {
+      setDuplicateEmail(2);
+      setTimeout(() => {
+        setDuplicateEmail(0);
+      }, 2000);
     }
   };
 
@@ -88,6 +129,13 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
             selectionColor="black"
             outlineColor="#BBA5FF"
             activeOutlineColor="#BBA5FF"
+            right={
+              <TextInput.Icon
+                icon="check"
+                onPress={checkEmail}
+                style={styles.eyeIcon}
+              />
+            }
           />
           {emailError ? (
             <Text style={styles.errorMsg}>올바른 이메일 형식이 아니에요.</Text>
@@ -142,11 +190,21 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
             <GotoLogin width="400" />
           </View>
         ) : null}
+        {duplicateEmail == 2 ? (
+          <View style={styles.errorPannel}>
+            <DuplicateEmail width="350" />
+          </View>
+        ) : null}
+        {duplicateEmail == 1 ? (
+          <View style={styles.errorPannel}>
+            <CanUseEmail width="350" />
+          </View>
+        ) : null}
       </View>
       <View style={styles.btmArea}>
         <TouchableOpacity
           disabled={btnDisableState}
-          onPress={() => pressBtn}
+          onPress={pressBtn}
           style={
             btnDisableState ? styles.nextDisableBtnBox : styles.nextBtnBox
           }>
@@ -237,7 +295,7 @@ const styles = StyleSheet.create({
   },
 
   errorPannel: {
-    marginTop: 30,
+    marginTop: 5,
     alignItems: 'center',
   },
 });
