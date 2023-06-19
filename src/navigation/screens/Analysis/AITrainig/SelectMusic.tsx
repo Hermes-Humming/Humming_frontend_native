@@ -1,5 +1,6 @@
 //플레이리스트에서 음악을 선곡하는 화면입니다
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -21,6 +22,12 @@ export type SelectMusicProps = StackScreenProps<
 >;
 
 const SelectMusic = ({ navigation }: SelectMusicProps) => {
+  const [clicked, setClicked] = useState<Boolean>(false);
+
+  const propClicked = () => {
+    setClicked(!clicked);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topMenuBar}>
@@ -29,14 +36,14 @@ const SelectMusic = ({ navigation }: SelectMusicProps) => {
       <View style={{ flex: 80 }}>
         <Text style={styles.titleText}>아래 리스트에서 선곡해주세요</Text>
         <View style={{ alignItems: 'center', marginBottom: 10 }}>
-          <View
-            style={{
-              width: width * 0.9,
-              height: height * 0.4,
-              alignItems: 'center',
-              borderWidth: 0.2,
-            }}>
-            <Text>노래 리스트가 들어갈 예정입니다.</Text>
+          <View style={styles.playListBox}>
+            <TouchableOpacity onPress={propClicked}>
+              <View
+                style={clicked ? styles.selectedMusicProp : styles.musicProp}>
+                <Text style={styles.musicTitle}>신호등</Text>
+                <Text style={styles.artistName}>이무진</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -81,5 +88,42 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#EFF4F4',
     marginRight: width * 0.05,
+  },
+  playListBox: {
+    width: width * 0.9,
+    height: height * 0.4,
+    alignItems: 'center',
+    borderWidth: 0.2,
+    borderRadius: 3,
+    borderColor: '#A6B9FF',
+  },
+  musicProp: {
+    alignItems: 'baseline',
+    width: width * 0.9,
+    borderWidth: 0.2,
+    borderRadius: 3,
+    borderColor: '#A6B9FF',
+  },
+  selectedMusicProp: {
+    alignItems: 'baseline',
+    width: width * 0.9,
+    borderWidth: 0.2,
+    borderRadius: 3,
+    borderColor: '#A6B9FF',
+    backgroundColor: '#A6B9FF',
+  },
+  musicTitle: {
+    fontSize: 20,
+    color: '#262626',
+    marginTop: 3,
+    marginBottom: 5,
+    marginLeft: 10,
+  },
+  artistName: {
+    fontSize: 15,
+    color: '#262626',
+    marginTop: 3,
+    marginBottom: 5,
+    marginLeft: 10,
   },
 });
