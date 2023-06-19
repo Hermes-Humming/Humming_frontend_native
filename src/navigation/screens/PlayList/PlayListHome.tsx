@@ -4,23 +4,42 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TopMenuBar from '../../../component/TopMenuBar';
 import { ScrollView } from 'react-native-gesture-handler';
-//import {useNavigation} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import CardView from '../../../component/CardView';
+import userPitch from '../../../services/userPitch';
 
 import PlayList_Thumbnail_1 from '../../../assets/The_Band_1.svg';
 import PlayList_Thumbnail_2 from '../../../assets/The_Band_2.svg';
 import PlayList_Thumbnail_3 from '../../../assets/The_Band_3.svg';
 import PlayListDetail from './PlayListDetail';
 import PlayListDetail2 from './PlayListDetail2';
+import PlayListDetail3 from './PlayListDetail3';
 
 const Stack = createNativeStackNavigator();
 
 function PlayListHome({ navigation }) {
+  const [lowestPitch, setLowestPitch] = React.useState<string | null>(null);
+  const [highestPitch, setHighestPitch] = React.useState<string | null>(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getPitch();
+    }, []),
+  );
+
+  const getPitch = async () => {
+    const response = await userPitch.getKey();
+    setLowestPitch(response.lowKey);
+    setHighestPitch(response.highKey);
+  };
+
   const handlePostClick = (playListId: number) => {
     console.log(playListId);
     if (playListId === 1) navigation.navigate('PlayListDetail', { playListId });
     if (playListId === 2)
       navigation.navigate('PlayListDetail2', { playListId });
+    if (playListId === 3)
+      navigation.navigate('PlayListDetail3', { playListId });
   };
 
   return (
@@ -46,7 +65,9 @@ function PlayListHome({ navigation }) {
               <PlayList_Thumbnail_1 />
             </View>
             <View style={{ flex: 1, padding: 20 }}>
-              <Text style={styles.sectionContent}>D3~D#5 음역대 추천</Text>
+              <Text style={styles.sectionContent}>
+                {lowestPitch}~{highestPitch} 음역대 추천
+              </Text>
               <Text style={styles.sectionTitle}>중저음의 당신을 위한 플리</Text>
             </View>
           </CardView>
@@ -67,7 +88,7 @@ function PlayListHome({ navigation }) {
             </View>
           </CardView>
 
-          <CardView style={styles.card}>
+          <CardView style={styles.card} onPress={() => handlePostClick(3)}>
             <View
               style={{
                 flex: 2,
@@ -97,6 +118,7 @@ function PlayList({ navigation }) {
         <Stack.Screen name="Home" component={PlayListHome} />
         <Stack.Screen name="PlayListDetail" component={PlayListDetail} />
         <Stack.Screen name="PlayListDetail2" component={PlayListDetail2} />
+        <Stack.Screen name="PlayListDetail3" component={PlayListDetail3} />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -9,6 +9,7 @@ import Minute from '../../../assets/Minute.svg';
 import { black } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardView from '../../../component/CardView';
+import userPitch from '../../../services/userPitch';
 
 export type VoicePitchDetectorProps = StackScreenProps<
   AnalysisStackParamList,
@@ -63,7 +64,6 @@ export default function VoicePitchDetector() {
   const [recording, setRecording] = React.useState<boolean>();
   const [pitch, setPitch] = React.useState<string | null>(null);
 
-  const [checkingLowest, setCheckingLowest] = React.useState<boolean>(true);
   const [instruction, setInstruction] = React.useState<string>(
     '낼 수 있는 가장 낮은 음을 지속하세요..',
   );
@@ -81,6 +81,22 @@ export default function VoicePitchDetector() {
     });
   }, []);
 
+  React.useEffect(() => {
+    const savePitchAsync = async () => {
+      if (lowestPitch && highestPitch) {
+        try {
+          const response = await userPitch.patchKey(lowestPitch, highestPitch);
+          userPitch.saveKey(lowestPitch, highestPitch);
+          console.log(response);
+        } catch (error) {
+          console.error('Error while saving pitch:', error);
+        }
+      }
+    };
+
+    savePitchAsync();
+  }, [lowestPitch, highestPitch]);
+
   async function startRecording() {
     console.log('Start recording');
     setRecording(true);
@@ -88,21 +104,23 @@ export default function VoicePitchDetector() {
     PitchDetector.start();
     setTimeout(() => {
       setButtonDisabled(false);
-    }, 5000);
+    }, 1000);
   }
 
   function stopRecording() {
     console.log('Stop recording');
     setRecording(false);
     PitchDetector.stop();
-    setCheckingLowest(false);
-    if (checkingLowest) {
+
+    if (!lowestPitch) {
       setLowestPitch(pitch);
-    }
-    if (!checkingLowest) {
+    } else if (pitch && !highestPitch) {
       setHighestPitch(pitch);
+      savePitch();
     }
   }
+
+  async function savePitch() {}
 
   return (
     <View style={{ flex: 1 }}>
@@ -123,9 +141,9 @@ export default function VoicePitchDetector() {
           </Text>
           <Text style={{ fontSize: 18, color: 'black' }}>목소리 인식중..</Text>
           <Text style={{ fontSize: 18, color: 'black' }}>
-            {checkingLowest
-              ? '낼 수 있는 가장 낮은 음을 지속해주세요'
-              : '낼 수 있는 가장 높은 음을 지속해주세요'}
+            {lowestPitch
+              ? '낼 수 있는 가장 높은 음을 지속해주세요'
+              : '낼 수 있는 가장 낮은 음을 지속해주세요'}
           </Text>
           <View style={{ marginTop: 30 }}>
             <Button

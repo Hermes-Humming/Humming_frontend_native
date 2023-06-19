@@ -12,10 +12,10 @@ const CardView = props => {
 const styles = StyleSheet.create({
   card: {
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 1,
     shadowOpacity: 0.26,
-    elevation: 8,
+    elevation: 5,
     padding: 20,
     borderRadius: 10,
   },
