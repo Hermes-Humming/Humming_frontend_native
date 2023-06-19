@@ -5,8 +5,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import TopMenuBar from '../../../component/TopMenuBar';
 import CardView from '../../../component/CardView';
 import PostDetail from './PostDetail';
-import Magazine_Thumbnail_1 from '../../../assets/Magazine_Thumbnail_1.svg';
 
+import Magazine_Thumbnail_1 from '../../../assets/Magazine_Thumbnail_1.svg';
+import Magazine_Thumbnail_2 from '../../../assets/Magazine_Thumbnail_2.svg';
+import Magazine_Thumbnail_3 from '../../../assets/Magazine_Thumbnail_3.svg';
 const Stack = createNativeStackNavigator();
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -39,6 +41,12 @@ function MagazineHome({ navigation }) {
     },
   ];
 
+  const thumbnails = {
+    0: <Magazine_Thumbnail_1 />,
+    1: <Magazine_Thumbnail_2 />,
+    2: <Magazine_Thumbnail_3 />,
+  };
+
   React.useEffect(() => {
     setPosts(tempData);
   }, []);
@@ -62,7 +70,7 @@ function MagazineHome({ navigation }) {
           ) : (
             posts.map((content, index) => (
               <CardView
-                key={content.id}
+                key={index}
                 style={styles.card}
                 onPress={() => handlePostClick(content.id)}>
                 <View
@@ -72,7 +80,7 @@ function MagazineHome({ navigation }) {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Magazine_Thumbnail_1 />
+                  {thumbnails[content.id]}
                 </View>
                 <View style={{ padding: 20 }}>
                   <Text style={styles.sectionTitle}>{content.title}</Text>
@@ -92,12 +100,11 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     width: '100%',
-    height: 300,
-
+    minHeight: 280,
+    maxHeight: 400,
     backgroundColor: 'white',
     justifyContent: 'center',
     padding: 0,
-    overflow: 'hidden',
   },
   sectionTitle: {
     marginBottom: 5,

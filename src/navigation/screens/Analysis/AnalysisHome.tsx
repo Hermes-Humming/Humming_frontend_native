@@ -4,10 +4,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PitchDetect from './VoicePitchDetector';
 import TopMenuBar from '../../../component/TopMenuBar';
 import CardView from '../../../component/CardView';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import TrebleClef from '../../../assets/TrebleClef.svg';
 import BandNotes from '../../../assets/BandNotes.svg';
 import BandSpeaker from '../../../assets/BandSpeaker.svg';
+import userPitch from '../../../services/userPitch';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { AnalysisStackParamList } from '../../../types/stacks/AnalysisStackTypes';
 const Stack = createNativeStackNavigator<AnalysisStackParamList>();
@@ -15,6 +17,21 @@ const Stack = createNativeStackNavigator<AnalysisStackParamList>();
 import AITraining from './AITrainig/AITrainig';
 
 function AnalysisHome({ navigation }: any) {
+  const [lowestPitch, setLowestPitch] = React.useState<string | null>(null);
+  const [highestPitch, setHighestPitch] = React.useState<string | null>(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getPitch();
+    }, []),
+  );
+
+  const getPitch = async () => {
+    const response = await userPitch.getKey();
+    setLowestPitch(response.lowKey);
+    setHighestPitch(response.highKey);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <TopMenuBar />
@@ -42,7 +59,11 @@ function AnalysisHome({ navigation }: any) {
                   alignItems: 'center',
                 }}>
                 <Text style={styles.sectionTitle}>중저음 테너</Text>
-                <Text style={{ fontSize: 13 }}>최저음: D3 / 최고음 C#5</Text>
+                <Text style={{ fontSize: 13 }}>
+                  최저음: {lowestPitch}
+                  {' / '}
+                  최고음: {highestPitch}
+                </Text>
               </View>
             </CardView>
           </View>
