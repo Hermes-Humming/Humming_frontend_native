@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,8 @@ import {
   Dimensions,
 } from 'react-native';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AITrainingStackParamList } from '../../../../types/stacks/AITrainingStackTypes';
 const Stack = createNativeStackNavigator<AITrainingStackParamList>();
 export type AITrainingProps = StackScreenProps<
   AITrainingStackParamList,
@@ -19,15 +19,15 @@ export type AITrainingProps = StackScreenProps<
 
 import TopMenuBar from '../../../../component/TopMenuBar';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 //screens
 import SelectMusic from './SelectMusic';
 import TrainingVoice from './TrainingVoice';
 import ResultSynthesis from './ResultSynthesis';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 
-function AITraining({navigation}: AITrainingProps) {
+function AITraining({ navigation }: AITrainingProps) {
   //입력값 관리
   const [title, setTitle] = useState<string>('');
   const [titleError, setTitleError] = useState<boolean>(true);
@@ -64,12 +64,12 @@ function AITraining({navigation}: AITrainingProps) {
       <View style={styles.topMenuBar}>
         <TopMenuBar />
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Text style={styles.titleText}>어떤 노래를 합성해볼까요?</Text>
 
-        <View style={{height: 120}}>
+        <View style={{ height: 120 }}>
           <Text style={styles.boxesText}>노래 제목</Text>
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             <TextInput
               style={styles.inputBox}
               value={title}
@@ -79,9 +79,9 @@ function AITraining({navigation}: AITrainingProps) {
             <Text style={styles.errorMsg}>제목은 꼭 필요한 정보에요.</Text>
           ) : null}
         </View>
-        <View style={{marginBottom: 20, height: 120}}>
+        <View style={{ marginBottom: 20, height: 120 }}>
           <Text style={styles.boxesText}>가수명</Text>
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             <TextInput
               style={styles.inputBox}
               onChangeText={text => onChangeSinger(text)}
@@ -91,7 +91,7 @@ function AITraining({navigation}: AITrainingProps) {
             <Text style={styles.errorMsg}>가수명은 꼭 필요한 정보에요.</Text>
           ) : null}
         </View>
-        <View style={{alignItems: 'flex-end', marginRight: width * 0.05}}>
+        <View style={{ alignItems: 'flex-end', marginRight: width * 0.05 }}>
           <TouchableOpacity
             disabled={btnDisableState}
             onPress={() => navigation.navigate('SelectMusic')}>
@@ -111,7 +111,7 @@ function AITraining({navigation}: AITrainingProps) {
 function Analysis() {
   return (
     <Stack.Navigator initialRouteName="AITraining">
-      <Stack.Group screenOptions={{headerShown: false}}>
+      <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="AITraining" component={AITraining} />
         <Stack.Screen name="SelectMusic" component={SelectMusic} />
         <Stack.Screen name="TrainingVoice" component={TrainingVoice} />

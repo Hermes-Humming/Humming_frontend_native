@@ -10,25 +10,25 @@ import {
 import TopMenuBar from '../../../../component/TopMenuBar';
 
 //get window size
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-import {AITrainingStackParamList} from '../../../../types/stacks/AITrainingStackTypes';
-import {StackScreenProps} from '@react-navigation/stack';
+import { AITrainingStackParamList } from '../../../../types/stacks/AITrainingStackTypes';
+import { StackScreenProps } from '@react-navigation/stack';
 
 export type SelectMusicProps = StackScreenProps<
   AITrainingStackParamList,
   'SelectMusic'
 >;
 
-const SelectMusic = ({navigation}: SelectMusicProps) => {
+const SelectMusic = ({ navigation }: SelectMusicProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topMenuBar}>
         <TopMenuBar />
       </View>
-      <View style={{flex: 80}}>
+      <View style={{ flex: 80 }}>
         <Text style={styles.titleText}>아래 리스트에서 선곡해주세요</Text>
-        <View style={{alignItems: 'center', marginBottom: 10}}>
+        <View style={{ alignItems: 'center', marginBottom: 10 }}>
           <View
             style={{
               width: width * 0.9,
