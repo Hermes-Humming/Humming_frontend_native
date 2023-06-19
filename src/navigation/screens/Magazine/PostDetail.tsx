@@ -5,7 +5,9 @@ import TopMenuBar from '../../../component/TopMenuBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardView from '../../../component/CardView';
 
-import Magazine_Featured_1 from '../../../assets/Magazine_Featured_1.svg';
+import Magazine_Thumbnail_1 from '../../../assets/Magazine_Thumbnail_1.svg';
+import Magazine_Thumbnail_2 from '../../../assets/Magazine_Thumbnail_2.svg';
+import Magazine_Thumbnail_3 from '../../../assets/Magazine_Thumbnail_3.svg';
 
 const PostDetail = () => {
   const route = useRoute();
@@ -37,6 +39,13 @@ const PostDetail = () => {
         "가수가 높은 음역대의 노래를 불러내면, 그것은 무슨 마법 같은 일로 보일 때가 있습니다. 하지만, 이러한 '고음' 발성은 실제로는 명확한 기법과 연습이 필요한 것입니다. 첫째, 발성 연습은 가슴 음과 머리 음을 이해하면서 시작합니다. 가슴 음은 우리가 평소에 말할 때 사용하는 음역대입니다. 반면, 머리 음은 목구멍의 상단 부분, 즉 '머리'에서 생성됩니다. 이 두 영역 사이의 전환은 '패소지오'라고 합니다. 고음을 내기 위해서는 이 패소지오를 원활하게 넘어갈 수 있어야 합니다. 다음으로, 적절한 호흡 기법이 중요합니다. '다이어프램 호흡'을 연습해보세요. 이는 가슴이 아닌 복부에서 호흡하는 기법으로, 더 큰 호흡 용량과 안정적인 고음을 얻을 수 있게 해줍니다. 마지막으로, 편안한 목 상태를 유지하는 것이 필요합니다. 무리한 고음은 목에 손상을 줄 수 있으므로, 적절한 음정과 음량에서 자신의 목소리를 유지하는 것이 중요합니다. 또한 목을 충분히 편안하게 유지하면, 더 높은 음역대로 손쉽게 전환할 수 있습니다. 이러한 기법들은 연습과 꾸준함이 필요합니다. 하지만 노력의 결실로, 높은 음역대의 아름다운 고음을 자유롭게 내는 방법을 배울 수 있습니다. 음악의 세계는 깊고 넓습니다. 여러분의 목소리가 어디까지 도달할 수 있는지 도전해보세요!",
     },
   ];
+
+  const thumbnails = {
+    0: <Magazine_Thumbnail_1 />,
+    1: <Magazine_Thumbnail_2 />,
+    2: <Magazine_Thumbnail_3 />,
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <TopMenuBar />
@@ -53,7 +62,7 @@ const PostDetail = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Magazine_Featured_1 />
+              {thumbnails[postId]}
             </View>
             <View style={{ padding: 20 }}>
               {tempData[postId] === (null || undefined) ? (
