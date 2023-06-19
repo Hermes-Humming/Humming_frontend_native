@@ -65,7 +65,7 @@ const tempData = [
   },
   {
     id: 9,
-    title: 'I’m not myself when I’m around you',
+    title: 'I’m not myself',
     singer: 'DINDIN',
     soundPath: 'imnotmyselfwhenimaroundyou',
   },
@@ -149,14 +149,13 @@ const tempData = [
   },
   {
     id: 23,
-    title: '뜨거운 여름밤은 가고 남은 건 볼품없지만',
+    title: '뜨거운 여름밤은 가고',
     singer: '잔나비',
     soundPath: '',
   },
   {
     id: 24,
-    title:
-      '사랑하긴 했었나요 스쳐가는 인연이었나요 짧지 않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네',
+    title: '스쳐가는 인연',
     singer: '잔나비',
     soundPath: '',
   },
